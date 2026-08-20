@@ -5,12 +5,15 @@ class ViewUser{
     private string $listeUsers;
     private array $dataUsers;
     private ViewHeader $header;
+    private ViewFooter $footer;
 
-    public function __construct(string $listeUsers,array $dataUsers)
+    public function __construct(string $listeUsers,array $dataUsers,ViewHeader $header,ViewFooter $footer)
     {
         $this->listeUsers=$listeUsers;
         $this->dataUsers=$dataUsers;
-        
+        $this->header=$header;
+        $this->footer=$footer;
+
     }
 
     public function display():void{
@@ -25,10 +28,8 @@ class ViewUser{
     }
     
     public function displayAll():void{
-        $header=new ViewHeader("Utilisateurs");
-        $header->display();
+        $this->header->display();
         $this->display();
-        $footer=new ViewFooter();
-        $footer->display();
+        $this->footer->display();
     }
 }
