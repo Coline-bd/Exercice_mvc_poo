@@ -3,10 +3,14 @@
 //import des ressources
 include('./env.php');
 include('./utils/utils.php');
+include('./view/viewHeader.php');
+        include('./view/viewUser.php');
+        include('./view/viewFooter.php');
 include('./model/modelUser.php');
 include('./model/modelArticle.php');
 include('./controller/controllerUsers.php');
 include('./controller/controllerArticle.php');
+
 
 //1. Récupérer l'url demandé par l'utilisateur
 $url = parse_url($_SERVER['REQUEST_URI']);
@@ -18,7 +22,7 @@ $path = isset($url['path']) ? $url['path'] : '/';
 switch ($path) {
     case '/':
     case $_ENV['utilisateurs']:
-        $users =new ControllerUsers;
+        $users =new ControllerUsers(new ModelUser(connect()));
         $users->render();
         break;
     case $_ENV['articles'] :
