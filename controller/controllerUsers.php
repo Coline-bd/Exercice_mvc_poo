@@ -16,8 +16,7 @@ class ControllerUsers
         $data = $this->model->findAll();
 
         //Appel de la view pour effectuer l'affichage
-         $view=new ViewUser("",$data,new ViewHeader("Utilisateurs"),new ViewFooter);
-
+        $view=new ViewUser($data,new ViewHeader("Utilisateurs"),new ViewFooter);
         $view->displayAll();
     }
 

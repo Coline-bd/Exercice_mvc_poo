@@ -2,14 +2,14 @@
 //Déclaration de ma variable d'affichage
 class ViewUser{
 
-    private string $listeUsers;
+    private string $listeUsers="";
     private array $dataUsers;
     private ViewHeader $header;
     private ViewFooter $footer;
 
-    public function __construct(string $listeUsers,array $dataUsers,ViewHeader $header,ViewFooter $footer)
+    public function __construct(array $dataUsers,ViewHeader $header,ViewFooter $footer)
     {
-        $this->listeUsers=$listeUsers;
+        // $this->listeUsers=$listeUsers;
         $this->dataUsers=$dataUsers;
         $this->header=$header;
         $this->footer=$footer;

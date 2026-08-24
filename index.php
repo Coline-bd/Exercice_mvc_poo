@@ -4,8 +4,9 @@
 include('./env.php');
 include('./utils/utils.php');
 include('./view/viewHeader.php');
-        include('./view/viewUser.php');
-        include('./view/viewFooter.php');
+include('./view/viewArticle.php');
+include('./view/viewUser.php');
+include('./view/viewFooter.php');
 include('./model/modelUser.php');
 include('./model/modelArticle.php');
 include('./controller/controllerUsers.php');
@@ -26,7 +27,8 @@ switch ($path) {
         $users->render();
         break;
     case $_ENV['articles'] :
-        displayArticles();
+        $articles=new ControllerArticle(new ModelArticle(connect()),new ViewArticle);
+        $articles->render();
         break;
     default:
         echo "erreur 404";

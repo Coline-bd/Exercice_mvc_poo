@@ -1,14 +1,19 @@
 <?php
-function displayArticles(){
-    //1. Effectuer la connexion à la BDD
-    
 
-    //2. Appel du model pour récupérer les données des articles
-    $data = getArticles();
+class ControllerArticle{
+    private ModelArticle $model;
+    private ViewArticle $view;
 
-    //3. Appel de la view pour afficher les data
-    $title = "Mes Articles";
-    include('./view/viewHeader.php');
-    include('./view/viewArticle.php');
-    include('./view/viewFooter.php');
+    public function __construct(ModelArticle $model, ViewArticle $view)
+    {
+        $this->model=$model;
+        $this->view=$view;
+    }
+
+    public function render(){
+        $data =$this->model->getArticles();
+        $this->view->setDataArticles($data);
+        $this->view->displayAll();
+    }
 }
+
