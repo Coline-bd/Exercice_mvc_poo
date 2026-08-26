@@ -1,25 +1,31 @@
 <?php
+namespace Model;
 
-class ModelArticle{
+use Model\Model;
+use PDO;
+use Exception;
+
+class ModelArticle extends Model{
+    //ATTRIBUT
     private ?int $id;
     private ?string $title;
     private ?string $content;
-    private ?DateTime $created_at;
-    private ?DateTime $edited_at;
-    private ?int $user_id;
-    private pdo $bdd;
+    private ?string $createdAt;
+    private ?string $editedAt;
+    private ?string $author;
 
-    public function __construct(pdo $bdd)
-    {
-        $this->bdd=$bdd;
-    }
-    public function getArticles(){
+    //CONSTRUCTEUR
+    
+
+    //GETTER ET SETTER
+
+    //METHODS
+    public function findAll():?array{
         try{
-            $bdd = connect();
             //1. Preparer la requête
-            $request = 'SELECT a.title, a.content, a.created_at, a.edited_at, u.pseudo FROM article a INNER JOIN user u ON u.id = a.user_id';
+            $request = 'SELECT a.id, a.title, a.content, a.created_at, a.edited_at, u.pseudo FROM article a INNER JOIN user u ON u.id = a.user_id';
 
-            $req = $this->bdd->prepare($request);
+            $req = $this->getBDD()->prepare($request);
 
             //2. Exécution de la requête
             $req->execute();
@@ -31,4 +37,3 @@ class ModelArticle{
         }
     }
 }
- 

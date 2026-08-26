@@ -1,4 +1,5 @@
 <?php
+namespace View;
 
 class ViewFooter{
     //ATTRIBUT
@@ -25,4 +26,4 @@ class ViewFooter{
         echo $this->buffer; //affichage du contenu en mémoire tampon
     }
 }
-    
+
