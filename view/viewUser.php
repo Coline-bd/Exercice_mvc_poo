@@ -1,23 +1,15 @@
 <?php
 namespace View;
+use View\View;
 
-class ViewUser{
+class ViewUser extends View{
     //ATTRIBUT
     //private string $listUsers = '';
-    private ?array $dataUsers;
-    private ViewFooter $viewFooter;
-    private ViewHeader $viewHeader;
-    private ?string $buffer;
 
     //CONSTRUCTEUR
 
     //GETTER ET SETTER
-    public function setData(array $newData){
-        $this->dataUsers = $newData;
-        $this->viewFooter = new ViewFooter();
-        $this->viewHeader = new ViewHeader("Utilisateurs","./public/src/script/scriptUser.js");
-        return $this;
-    }
+    
 
     //METHODS
     //Mise en mémoire tampon
@@ -26,7 +18,7 @@ class ViewUser{
         // foreach($this->dataUsers as $row){
         //         $this->listUsers .="<li>Pseudo :".$row['pseudo']." - Email : ".$row['email']." - Role :".$row['role']."</li>";
         // };
-
+    $data=$this->getData();
         ob_start();
 ?>
             <main>
@@ -34,7 +26,7 @@ class ViewUser{
                 <ul>
 <?php  
                 // inclusion de la boucle foreach effectuer en 1. (plus haut) au sein du template HTML mis en buffer
-                foreach($this->dataUsers as $row){
+                foreach($data as $row){
 ?>
                     <li>Pseudo : <?= $row['pseudo'] ?> - Email : <?= $row['email'] ?> - Role : <?= $row['role'] ?></li>
 <?php    
@@ -44,19 +36,10 @@ class ViewUser{
             </main>
 <?php
         //Récupération du buffer dans la propriété $this->buffer
-        $this->buffer = ob_get_clean();
+        
+        $buffer = ob_get_clean();
+        $this->setBuffer($buffer);
         return $this;
     }
-
-    //Affichage du contenu de la mémoire tampon
-    public function display():void{
-        echo $this->buffer;
-    }
-
-    //Affichage de l'entièreté de la page
-    public function displayAll():void{
-        $this->viewHeader->launchBuffer()->display();
-        $this->launchBuffer()->display();
-        $this->viewFooter->launchBuffer()->display();
-    }
+   
 }

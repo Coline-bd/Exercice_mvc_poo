@@ -2,11 +2,11 @@
 
 namespace Controller;
 use Model\Model;
-
+use View\View;
 
 class Controller {
     private Model $model;
-    private $view;
+    private View $view;
 
     public function __construct(Model $model, $view){
         $this->model = $model;
@@ -18,6 +18,11 @@ class Controller {
         $data = $this->model->findAll();
 
         //2.Passage des data à la View et son Appel pour afficher les data traitées
-        $this->view->setData($data)->displayAll();
+        $this->view->setData($data)->launchBuffer();
+        $this->view->displayAll();
+    }
+
+    public function seConnecter(){
+
     }
 }

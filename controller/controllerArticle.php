@@ -13,5 +13,7 @@ class ControllerArticle extends Controller {
     //Getter et Setter
 
     //METHODS
-    
+    public function filterArticle(): void{
+
+    }
 }
