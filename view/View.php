@@ -8,9 +8,9 @@ class View{
     private ViewHeader $viewHeader;
     private ?string $buffer; 
 
-    public function __construct(){
+    public function __construct(string $title,string $script){
         $this->viewFooter = new ViewFooter();
-        $this->viewHeader = new ViewHeader("Articles","./public/src/script/scriptArticle.js");
+        $this->viewHeader = new ViewHeader($title,$script);
     }
 
     public function setData(array $data){

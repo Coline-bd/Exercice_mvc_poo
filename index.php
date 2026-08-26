@@ -59,11 +59,11 @@ switch ($path) {
     case '/':
     case $_ENV['utilisateurs']:
         // utilisation de l'alias pour le Controller\ControllerUser
-        $controller = new MonUser(new ModelUser(Utils::connect()), new ViewUser());
+        $controller = new MonUser(new ModelUser(Utils::connect()), new ViewUser("Utilisateurs","./public/src/script/scriptUser.js"));
         $controller->render();
         break;
     case $_ENV['articles'] :
-        $controller = new ControllerArticle(new ModelArticle(Utils::connect()), new ViewArticle());
+        $controller = new ControllerArticle(new ModelArticle(Utils::connect()), new ViewArticle("Articles","./public/src/script/scriptArticle.js"));
         $controller->render();
         break;
     default:
