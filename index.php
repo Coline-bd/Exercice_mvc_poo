@@ -71,9 +71,16 @@ switch ($path) {
         break;
     case $_ENV['account'] :
         $controller= new ControllerAccount(new ModelUser(Utils::connect()),new ViewAccount("Mon compte","./public/src/script/scriptArticle.js"));
-        if (isset($_SESSION)){
+        if (!empty($_SESSION)){
             $controller->render();
         }
+        else{
+            header('Location: /MVC/');
+        }
+        break;
+    case $_ENV["deconnexion"]:
+        session_destroy();
+        header('Location: /MVC/');
         break;
     default:
         echo "erreur 404";
