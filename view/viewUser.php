@@ -5,11 +5,13 @@ use View\View;
 class ViewUser extends View{
     //ATTRIBUT
     //private string $listUsers = '';
-
+    private ?string $connexion="";
     //CONSTRUCTEUR
 
     //GETTER ET SETTER
-    
+    public function setConnexion(string $is_connected){
+        $this->connexion=$is_connected;
+    }
 
     //METHODS
     //Mise en mémoire tampon
@@ -33,6 +35,17 @@ class ViewUser extends View{
                 }
 ?>
                 </ul>
+                <h2>Connexion</h2>
+                <form action="" method="post">
+                    <label for="pseudo">Pseudo : </label>
+                    <input type="text" name="pseudo">
+                    <label for="email">Adresse email : </label>
+                    <input type="email" name="email">
+                    <label for="password">Mot de passe : </label>
+                    <input type="password" name="password" >
+                    <input type="submit" name="submit" value="se connecter">
+                    <p><?= $this->connexion ?></p>
+                </form>
             </main>
 <?php
         //Récupération du buffer dans la propriété $this->buffer

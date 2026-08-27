@@ -20,7 +20,9 @@ class ModelUser extends Model{
     //CONSTRUCTEUR
 
     //GETTER ET SETTER
-
+    public function setEmail(string $email){
+        $this->email=$email;
+    }
     //METHODS
     public function findAll():?array{
         try{
@@ -32,8 +34,21 @@ class ModelUser extends Model{
             $req->execute();
 
             //3. Return des données utilisateurs
+
             return $req->fetchAll(PDO::FETCH_ASSOC);
         }catch(EXCEPTION $error){
+            die($error->getMessage());
+        }
+    }
+
+    public function findByEmail(){
+        try{
+            $req=$this->getBDD()->prepare('SELECT  u.id, u.pseudo, u.email, u.password, u.created_at, r.role FROM user u INNER JOIN role r ON r.id = u.role_id WHERE u.email=?');
+            $req->bindValue(1,$this->email);
+            $req->execute();
+            return $req->fetch(PDO::FETCH_ASSOC);
+        }
+        catch(Exception $error){
             die($error->getMessage());
         }
     }

@@ -18,7 +18,7 @@ class View{
         return $this;
     }
 
-    public function setBuffer(string $newBuffer){
+    protected function setBuffer(string $newBuffer){
         $this->buffer=$newBuffer;
     }
 
@@ -34,7 +34,7 @@ class View{
     //Method pour recomposer l'entièreté de la page
     public function displayAll():void{
         $this->viewHeader->launchBuffer()->display();
-        $this->display();
+        $this->launchBuffer()->display();
         $this->viewFooter->launchBuffer()->display();
     }
 
