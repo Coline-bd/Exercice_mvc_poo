@@ -6,13 +6,16 @@ class ViewUser extends View{
     //ATTRIBUT
     //private string $listUsers = '';
     private ?string $connexion="";
+    private ?string $signUp="";
     //CONSTRUCTEUR
 
     //GETTER ET SETTER
     public function setConnexion(string $is_connected){
         $this->connexion=$is_connected;
     }
-
+    public function setSignUp(string $message){
+        $this->signUp=$message;
+    }
     //METHODS
     //Mise en mémoire tampon
     public function launchBuffer():self{
@@ -35,6 +38,19 @@ class ViewUser extends View{
                 }
 ?>
                 </ul>
+                <h2>Inscription</h2>
+                <form action="" method="post">
+                <label for="pseudo">Pseudo : </label>
+                    <input type="text" name="pseudo">
+                    <label for="email">Adresse email : </label>
+                    <input type="email" name="email">
+                    <label for="password">Mot de passe : </label>
+                    <input type="password" name="password" >
+                    <label for="passwordCheck">Confirmation du mot de passe : </label>
+                    <input type="password" name="passwordCheck" >
+                    <input type="submit" name="signUp" value="s'inscrire">
+                    <p> <?= $this->signUp ?></p>
+                </form>
                 <h2>Connexion</h2>
                 <form action="" method="post">
                     <label for="pseudo">Pseudo : </label>

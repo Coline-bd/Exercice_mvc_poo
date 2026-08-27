@@ -12,6 +12,7 @@ namespace Controller;
 
 use Model\ModelUser;
 use View\ViewUser;
+use Utils\Utils;
 
 class ControllerUser extends Controller{
     //ATTRIBUTS
@@ -68,6 +69,56 @@ class ControllerUser extends Controller{
                 $this->getView()->setConnexion("Veuillez remplir tous les champs");
             }
         }
+    }
+
+    public function registerUser(){
+        // Vérifier que l'on reçoit le formulaire d'inscription
+        if(isset($_POST["signUp"])){
+            // Vérifier les champs (vide, format, nettoyage)
+            if(empty($_POST["pseudo"]) ||  empty($_POST["email"])|| empty($_POST["password"]) || empty($_POST["passwordCheck"])){
+                $this->getView()->setSignUp("Veuillez remplir tous les champs");
+            return;
+            }
+            if(!filter_var($_POST['email'],FILTER_VALIDATE_EMAIL)){
+                $this->getView()->setSignUp('Email pas au bon format');
+                return;
+            }
+            $password = Utils::sanitize($_POST['password']);
+            $passwordCheck=Utils::sanitize($_POST['passwordCheck']);
+            $pseudo=Utils::sanitize($_POST['pseudo']);
+            $email=Utils::sanitize($_POST['email']);
+
+            // Vérifier si les 2 mots de passes correspondent
+            if($password!==$passwordCheck){
+                $this->getView()->setSignUp("Les mots de passe ne sont pas identiques");
+                return;
+            }
+            $this->getModel()->setEmail($email);
+            $this->getModel()->setPseudo($pseudo);
+            $this->getModel()->setPassword($password);
+            // Vérifier si l'email et le pseudo ne sont pas déjà enregsitré dans la bdd (tous les 2 sont UNIQUES dans la BDD)
+            if (!empty($this->getModel()->findByPseudo())){
+                $this->getView()->setSignUp("Le pseudo existe déjà");
+                return;
+            }
+            if (!empty($this->getModel()->findByEmail())){
+                $this->getView()->setSignUp("L'email existe déjà");
+                return;
+            }
+            // Enregistrer l'utilisateur en BDD grâce à la méthode addUser()
+            $this->getModel()->addUser();
+            // Afficher un message de confirmation
+            $this->getView()->setSignUp("Inscription confirmée");
+                return;
+        }
+
+
+
+
+
+
+
+
     }
     /**
      * Get the value of modelUser

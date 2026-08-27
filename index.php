@@ -63,6 +63,7 @@ switch ($path) {
         // utilisation de l'alias pour le Controller\ControllerUser
         $controller = new MonUser(new ModelUser(Utils::connect()), new ViewUser("Utilisateurs","./public/src/script/scriptUser.js"));
         $controller->seConnecter();
+        $controller->registerUser();
         $controller->render();
         break;
     case $_ENV['articles'] :

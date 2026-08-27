@@ -14,6 +14,12 @@ class Utils{
         if(empty($password)){
             return ['message' => "Mot de passe invalide", 'code' => 'invalide'];
         }
-        return ['message' => password_hash($password), 'code' => 'correct'];
+        return ['message' => password_hash($password,PASSWORD_DEFAULT), 'code' => 'correct'];
     }
+
+     public static function sanitize(string $data):string{
+        return htmlentities(strip_tags(stripslashes(trim($data))));
+    }
+
+
 }

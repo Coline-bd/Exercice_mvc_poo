@@ -5,6 +5,7 @@ namespace Model;
 use Model\Model;
 use PDO;
 use Exception;
+use Utils\Utils;
 
 //extends : la propriété pour l'héritage. Ici ModelUser hérite de la class Model
 class ModelUser extends Model{
@@ -22,6 +23,13 @@ class ModelUser extends Model{
     //GETTER ET SETTER
     public function setEmail(string $email){
         $this->email=$email;
+    }
+
+    public function setPseudo(string $pseudo){
+        $this->pseudo=$pseudo;
+    }
+    public function setPassword(string $password){
+        $this->password=$password;
     }
     //METHODS
     public function findAll():?array{
@@ -47,6 +55,33 @@ class ModelUser extends Model{
             $req->bindValue(1,$this->email);
             $req->execute();
             return $req->fetch(PDO::FETCH_ASSOC);
+        }
+        catch(Exception $error){
+            die($error->getMessage());
+        }
+    }
+
+    public function findByPseudo(){
+        try{
+            $req=$this->getBDD()->prepare('SELECT  u.id, u.pseudo, u.email, u.password, u.created_at, r.role FROM user u INNER JOIN role r ON r.id = u.role_id WHERE u.pseudo=?');
+            $req->bindValue(1,$this->pseudo);
+            $req->execute();
+            return $req->fetch(PDO::FETCH_ASSOC);
+        }
+        catch(Exception $error){
+            die($error->getMessage());
+        }
+    }
+
+    public function addUser(){
+        try{
+            $hash=Utils::passwordHash($this->password);
+            $passwordHash=$hash["message"];
+            $req=$this->getBDD()->prepare('INSERT INTO user(pseudo, email, `password`) VALUE (?,?,?)');
+            $req->bindValue(1,$this->pseudo);
+            $req->bindValue(2,$this->email);
+            $req->bindValue(3,$passwordHash);
+            $req->execute();
         }
         catch(Exception $error){
             die($error->getMessage());
