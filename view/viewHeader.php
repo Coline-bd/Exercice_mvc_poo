@@ -1,6 +1,6 @@
 <?php
 namespace View;
-
+use View\ViewAccount;
 //Class ViewHeader
 class ViewHeader{
     //ATTRIBUTS
@@ -34,6 +34,7 @@ class ViewHeader{
                 <header>
                     <nav>
                         <a href=<?php echo $_ENV['utilisateurs'] ?> >Utilisateurs</a>
+                        <a href=<?php echo $_ENV['account'] ?> >Mon compte</a>
                         <a href=<?php echo $_ENV['articles'] ?> >Articles</a>
                     </nav>
                 </header>

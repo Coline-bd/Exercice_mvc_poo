@@ -36,13 +36,15 @@ require_once __DIR__ . '/vendor/autoload.php';
 //Utilisation du namespace pour le ControllerUser
 //Point important : pour utiliser une class provenant d'un espace de nom, je dois absolument include (ou require) le fichier contenant la classe en question
 //include('./Controller/ControllerUser.php');
-
+session_start();
+use Controller\ControllerAccount;
 use Controller\ControllerUser as MonUser; // avec AS je fourni un alias au nom de ma classe
 use Controller\controllerArticle;
 use Model\ModelUser;
 use Model\ModelArticle;
 use View\ViewUser;
 use View\ViewArticle;
+use View\ViewAccount;
 // use Controller\Model;
 // use Controller\Controller;
 
@@ -66,6 +68,12 @@ switch ($path) {
     case $_ENV['articles'] :
         $controller = new ControllerArticle(new ModelArticle(Utils::connect()), new ViewArticle("Articles","./public/src/script/scriptArticle.js"));
         $controller->render();
+        break;
+    case $_ENV['account'] :
+        $controller= new ControllerAccount(new ModelUser(Utils::connect()),new ViewAccount("Mon compte","./public/src/script/scriptArticle.js"));
+        if (isset($_SESSION)){
+            $controller->render();
+        }
         break;
     default:
         echo "erreur 404";
