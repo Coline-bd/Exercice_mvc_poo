@@ -72,12 +72,9 @@ switch ($path) {
         break;
     case $_ENV['account'] :
         $controller= new ControllerAccount(new ModelUser(Utils::connect()),new ViewAccount("Mon compte","./public/src/script/scriptArticle.js"));
-        if (!empty($_SESSION)){
-            $controller->render();
-        }
-        else{
-            header('Location: /MVC/');
-        }
+        $controller->render();
+        $controller->deleteAccount();
+        $controller->updateAccount();
         break;
     case $_ENV["deconnexion"]:
         session_destroy();

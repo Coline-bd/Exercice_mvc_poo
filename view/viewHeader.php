@@ -34,9 +34,11 @@ class ViewHeader{
                 <header>
                     <nav>
                         <a href=<?php echo $_ENV['utilisateurs'] ?> >Utilisateurs</a>
-                        <a href=<?php echo $_ENV['account'] ?> >Mon compte</a>
                         <a href=<?php echo $_ENV['articles'] ?> >Articles</a>
+                        <?php if(isset($_SESSION["id"])) : ?>
+                        <a href=<?php echo $_ENV['account'] ?> >Mon compte</a>
                         <a href=<?php echo $_ENV['deconnexion'] ?>>Déconnection</a>
+                        <?php endif ?>
                     </nav>
                 </header>
 <?php

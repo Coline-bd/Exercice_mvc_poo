@@ -25,6 +25,7 @@ class ViewUser extends View{
         // };
     $data=$this->getData();
         ob_start();
+        if(isset($_SESSION["id"])) {
 ?>
             <main>
                 <h1>Liste des utilisateurs</h1>
@@ -36,8 +37,11 @@ class ViewUser extends View{
                     <li>Pseudo : <?= $row['pseudo'] ?> - Email : <?= $row['email'] ?> - Role : <?= $row['role'] ?></li>
 <?php    
                 }
+
 ?>
                 </ul>
+                <?php }
+                 else { ?>
                 <h2>Inscription</h2>
                 <form action="" method="post">
                 <label for="pseudo">Pseudo : </label>
@@ -62,6 +66,7 @@ class ViewUser extends View{
                     <input type="submit" name="submit" value="se connecter">
                     <p><?= $this->connexion ?></p>
                 </form>
+                <?php } ?>
             </main>
 <?php
         //Récupération du buffer dans la propriété $this->buffer

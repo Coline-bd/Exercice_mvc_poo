@@ -41,7 +41,6 @@ class ControllerUser extends Controller{
                     $password=trim($_POST["password"]);
                     $this->getModel()->setEmail($email);
                     $user_login=$this->getModel()->findByEMail();
-                    var_dump($user_login);
                     if (!$user_login){
                         $this->getView()->setConnexion("Le compte n'existe pas");
                     }

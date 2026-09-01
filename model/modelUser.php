@@ -21,6 +21,9 @@ class ModelUser extends Model{
     //CONSTRUCTEUR
 
     //GETTER ET SETTER
+    public function setId($id){
+        $this->id=$id;
+    }
     public function setEmail(string $email){
         $this->email=$email;
     }
@@ -81,6 +84,33 @@ class ModelUser extends Model{
             $req->bindValue(1,$this->pseudo);
             $req->bindValue(2,$this->email);
             $req->bindValue(3,$passwordHash);
+            $req->execute();
+        }
+        catch(Exception $error){
+            die($error->getMessage());
+        }
+    }
+
+    public function delete(){
+        try{
+            $req=$this->getBDD()->prepare('DELETE FROM user WHERE id=?');
+            $req->bindValue(1,$this->id);
+            $req->execute();
+        }
+        catch(Exception $error){
+            die($error->getMessage());
+        }
+    }
+
+    public function update(){
+        try{
+            $hash=Utils::passwordHash($this->password);
+            $passwordHash=$hash["message"];
+            $req=$this->getBDD()->prepare('UPDATE user SET pseudo=?, email=?, `password`=? WHERE id=?');
+            $req->bindValue(1,$this->pseudo);
+            $req->bindValue(2,$this->email);
+            $req->bindValue(3,$passwordHash);
+            $req->bindValue(4,$this->id);
             $req->execute();
         }
         catch(Exception $error){
